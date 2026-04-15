@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: int_line_health
+    description: "Intermediate model for line health data, combining arrivals and line status information"
+    columns:
+      - name: vehicleId
+        description: "The unique identifier for the vehicle"
+      - name: naptanId
+        description: "The unique identifier for the stop"
+      - name: stationName
+        description: "The name of the station"
+        
+  - name: int_arrivals_enriched
+    description: "Intermediate model for enriched arrivals data, combining arrivals with stop information"
+    columns:
+      - name: vehicleId
+        description: "The unique identifier for the vehicle"
+      - name: naptanId
+        description: "The unique identifier for the stop" 
+      - name: longitude
+        description: "The longitude of the stop"  
+      - name: latitude
+        description: "The latitude of the stop"  

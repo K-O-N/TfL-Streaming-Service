@@ -1,0 +1,25 @@
+sources:
+  - name: tfl
+    database: tfl-system
+    schema: tfl_system_raw
+    description: raw source data from Transport for London
+    config:
+      freshness:
+        warn_after: {count: 2, period: day}
+        error_after: {count: 5, period: day}
+        loaded_at_field: timing_source
+    tables:
+      - name: arrivals_native 
+        description: contains the raw arrivals data from the lines api
+
+      - name: line_status_native
+        description: contains the raw line status data from the lines api
+        config:
+          freshness:
+            warn_after: {count: 2, period: day}
+            error_after: {count: 5, period: day}
+            loaded_at_field: created
+      - name: stoppoints_dim
+        description: contains the raw stoppoints data from the lines api
+        config:
+          freshness: null 

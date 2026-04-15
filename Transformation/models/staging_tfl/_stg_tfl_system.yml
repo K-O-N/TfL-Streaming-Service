@@ -1,0 +1,46 @@
+
+version: 2
+
+models:
+  - name: stg_tfl_system_arrivals
+    description: "Staging model for TfL system arrivals data"
+    columns:
+      - name: trip_id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: direction
+        description: "The direction of the vehicle"
+        tests: 
+          - accepted_values:
+              values: ['inbound', 'outbound']
+      - name: mode_name
+        description: "The mode of transport"
+        tests: 
+          - accepted_values:
+              values: ['bus']
+      - name: line_id
+        description: "The id of the line"
+      - name: line_name
+        description: "The name of the line"
+
+
+  - name: stg_tfl_system_line_status
+    description: "Staging model for TfL system line status data"
+    columns:
+      - name: stop_id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_tfl_system_stoppoints
+    description: "Staging model for TfL system line status data"
+    columns:
+      - name: naptan_id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+
