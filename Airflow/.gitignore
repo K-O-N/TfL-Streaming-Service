@@ -1,0 +1,10 @@
+.logs
+airflow/logs/
+.json
+Data_ingestion/airflow/logs/
+/credentials/google_credentials.json
+.env
+.cfg
+Data_ingestion/airflow/config/airflow.cfg
+airflow.cfg
+Data_ingestion/airflow/config/airflow.cfg

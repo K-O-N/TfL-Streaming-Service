@@ -1,0 +1,24 @@
+Welcome to your new dbt project!
+
+### Using the starter project
+
+Try running the following commands:
+- dbt run
+- dbt test
+
+
+### Resources:
+- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
+- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
+- Join the [chat](https://community.getdbt.com/) on Slack for live discussions and support
+- Find [dbt events](https://events.getdbt.com) near you
+- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+
+
+
+dbt - docker setup
+create a docker-compose file using ... set the right path to your google creds 
+include this in your volume to ensure the airflow can see this 
+``` - /var/run/docker.sock:/var/run/docker.sock ```
+create a dockerfile and include yor docker files 
+

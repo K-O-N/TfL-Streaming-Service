@@ -1,0 +1,57 @@
+version: 2
+
+models:
+  - name: fct_arrivals
+    description: "Fact table for TfL arrivals, containing arrival time, vehicle id, line id and stop id"
+    config:
+      contracts: 
+        enforced: true
+    columns:
+      - name: trip_id
+        description: "The primary key for this table"
+        data_type: string
+        tests:
+          - unique
+          - not_null
+      - name: timing_source
+        data_type: timestamp
+      - name: expected_arrival
+        data_type: timestamp
+      - name: time_to_station
+        data_type: timestamp
+      - name: created_at
+        data_type: timestamp
+
+  - name: dim_lines
+    description: "Dimension table for TfL lines, containing line id and line name"
+    columns:
+      - name: line_id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: line_name
+        description: "The name of the line"
+        tests:
+          - not_null
+
+  - name: dim_stoppoints
+    description: "Dimension table for TfL stop points, containing stop id, name, location and type"
+    columns:
+      - name: naptan_id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: common_name
+        description: "The common name of the stop"
+      - name: latitude
+        description: "The latitude of the stop"
+      - name: longitude
+        description: "The longitude of the stop"
+      - name: place_type
+        description: "The type of the stop (e.g. bus stop, tube station, etc.)"
+
+ 
+     
+      

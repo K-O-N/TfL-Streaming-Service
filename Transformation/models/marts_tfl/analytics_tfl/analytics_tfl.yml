@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: busiest_stations
+    description: "Top 10 busiest stations based on the number of arrivals"
+    config:
+      contracts: 
+        enforced: true
+    columns:
+      - name: station_name
+        data_type: string
+        description: "The name of the station"
+        tests:
+          - unique
+          - not_null
+      - name: num_arrivals
+        data_type: integer
+        description: "The number of arrivals at the station"
+
+  - name: time_to_station
+    description: "Average time to station for each line"
+    config:
+      contracts: 
+        enforced: true
+    columns:
+      - name: trip_id
+        data_type: string
+        description: "The ID of the trip"
+        tests:
+          - unique
+          - not_null
+
+  - name: active_stops
+    description: "List of active stops based on the stop status data"
+    columns:
+      - name: naptan_id
+        description: "The ID of the stop"
+        tests:
+          - unique
+          - not_null
+  
+  - name: line_delays
+    description: "Hourly delay information of lines based on line status data"
+    
+  
