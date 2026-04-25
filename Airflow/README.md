@@ -1,7 +1,8 @@
 # Data Ingestion and Orchestration
 
 ## Data Orchestration
-For the orchestion of pipeline jobs, I will be using airflow. 
+For the orchestion of pipeline jobs, I will be using airflow. Airflow is used as the control plane of the pipeline, orchestrating batch ingestion from GCS into BigQuery. It does not handle streaming ingestion directly; instead, it coordinates downstream processing of data produced by Kafka Connect.
+
 #### Airflow Setup
 - Create a subdirectory in the data_ingestion folder, ```mkdir airflow```
 - Download the official image docker-compose.yaml by running the following 
@@ -11,6 +12,13 @@ For the orchestion of pipeline jobs, I will be using airflow.
     mkdir -p ./dags ./logs ./plugins ./config
     echo -e "AIRFLOW_UID=$(id -u)" > .env
     ```
+These directories ensure:
+
+- dags/ → stores pipeline definitions
+- logs/ → persists task execution logs
+- plugins/ → custom operators/hooks (if needed later)
+- config/ → Airflow configuration overrides
+
 - Minimise the default docker-compose.yaml: the official image is quite heavy, hence, 
     - Disable Examples to keep the UI clean
     - Remove Services: airflow-worker, airflow-triggerer, flower, and redis
