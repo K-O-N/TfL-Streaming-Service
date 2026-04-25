@@ -63,6 +63,10 @@ These directories ensure:
 
     USER ${AIRFLOW_UID}
     ```
+This enables:
+
+running gcloud commands inside Airflow containerdebugging GCS/BigQuery issues directly from Airflow
+
 - Create a requirements.txt file to install libraries via pip install (google specific client for airflow and pyarrow)
 - Finally, uncomment the build: . under x-airflow-common. Comment out the image line (optional) or give a new name to the image
 
@@ -75,10 +79,18 @@ These directories ensure:
 
 - Start Airflow: ``` docker compose up``` once airflow is up, you can access the UI via localhost:8080
 
+Data Handling Strategy
 
-Why this makes your project "Senior Level":
-Idempotency: If the Load task fails, the files are safe in the processing/ folder. You can fix the error and restart without losing data or creating duplicates.
+To ensure reliable and consistent data ingestion, files are processed using a three-stage workflow:
 
-Zero Data Loss: By moving files first, you ensure that any file created by your Python producer while the DAG is running won't accidentally be deleted.
+### Staging (Move Operation)
+- Incoming files are first moved from the landing directory to a dedicated processing/ (staging) folder. This creates a stable snapshot of the data to be processed and isolates it from newly arriving files.
+- Load to BigQuery
+- Only the files in the staging folder are ingested into BigQuery. This guarantees that each batch represents a fixed set of data and avoids partial or inconsistent loads.
+- Cleanup (Delete Operation): After a successful load, the processed files are deleted from the staging folder to prevent reprocessing in subsequent runs.
 
-Cleanliness: Your BigQuery External Table (if you still have it) will only show "pending" data that hasn't been moved to the Warehouse yet.
+
+### Design Benefits
+- Idempotency: If the Load task fails, the files are safe in the processing/ folder. You can fix the error and restart without losing data or creating duplicates.
+- Zero Data Loss: By moving files first, you ensure that any file created by your Python producer while the DAG is running won't accidentally be deleted.
+- Cleanliness: Your BigQuery External Table (if you still have it) will only show "pending" data that hasn't been moved to the Warehouse yet.
