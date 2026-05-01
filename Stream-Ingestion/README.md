@@ -1,12 +1,22 @@
-# Data Ingestion
-install uv and initialise 
+# Streaming TfL Data with Kafka and Confluent
+Transport for London (TfL) provides dynamic, real-time data feeds—such as vehicle locations and arrival predictions—that update every 30 to 60 seconds. 
+To capture and process these ephemeral data points without data loss, a streaming architecture using Apache Kafka and Confluent is used.
+
+In this setup, a lightweight producer script continuously polls the TfL REST API and immediately publishes the JSON data payload into a Kafka topic. Confluent functions as the centralized event backbone, ensuring that the high-volume stream of vehicle positions is handled reliably. Downstream consumers or data connectors can then safely validate and write the stream into your GCS data lake without overloading the source API.
+
+## Getting started 
+1. Install and initialise uv
+```
  pip install uv 
- uv init 
+ uv init
+```
 
-Use uv to add dependencies 
-kakfa-python pyarrow pandas 
+2. Use uv to add dependencies kakfa-python pyarrow pandas
+```
+uv add kakfa-python pyarrow pandas
+```
 
-create a docker compose file 
+4. create a docker compose file 
 create using redpandas.. 
 
 update docker-compose file with the connect service 
